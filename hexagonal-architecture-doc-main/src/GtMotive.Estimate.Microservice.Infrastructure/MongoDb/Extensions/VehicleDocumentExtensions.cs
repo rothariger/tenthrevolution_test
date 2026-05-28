@@ -17,7 +17,7 @@ namespace GtMotive.Estimate.Microservice.Infrastructure.MongoDb.Extensions
         public static Vehicle ToVehicle(this VehicleDocument doc)
         {
             ArgumentNullException.ThrowIfNull(doc);
-            return new Vehicle(doc.Id, doc.Make, doc.Model, doc.ManufactureYear, doc.IsAvailable);
+            return new Vehicle(doc.Id, doc.Make, doc.Model, doc.ManufactureYear);
         }
     }
 }

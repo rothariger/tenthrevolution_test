@@ -33,9 +33,9 @@ namespace GtMotive.Estimate.Microservice.Domain.Interfaces
         Task UpdateAsync(Vehicle vehicle);
 
         /// <summary>
-        /// Gets all vehicles that are currently available for rental.
+        /// Gets all vehicles in the fleet.
         /// </summary>
-        /// <returns>A list of available vehicles.</returns>
-        Task<IEnumerable<Vehicle>> GetAllAvailableAsync();
+        /// <returns>A list of all vehicles.</returns>
+        Task<IEnumerable<Vehicle>> GetAllAsync();
     }
 }

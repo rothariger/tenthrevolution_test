@@ -39,7 +39,7 @@ namespace GtMotive.Estimate.Microservice.ApplicationCore.UseCases.CreateVehicle
                     $"Vehicle manufacture year {input.ManufactureYear} exceeds the maximum allowed age of {MaxVehicleAgeInYears} years.");
             }
 
-            var vehicle = new Vehicle(Guid.NewGuid(), input.Make, input.Model, input.ManufactureYear, isAvailable: true);
+            var vehicle = new Vehicle(Guid.NewGuid(), input.Make, input.Model, input.ManufactureYear);
             await _vehicleRepository.AddAsync(vehicle);
             _outputPort.StandardHandle(new CreateVehicleOutput(vehicle.Id));
         }

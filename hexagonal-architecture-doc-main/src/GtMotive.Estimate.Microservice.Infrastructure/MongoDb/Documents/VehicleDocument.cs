@@ -30,10 +30,5 @@ namespace GtMotive.Estimate.Microservice.Infrastructure.MongoDb.Documents
         /// Gets or sets the year the vehicle was manufactured.
         /// </summary>
         public int ManufactureYear { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether the vehicle is available for rental.
-        /// </summary>
-        public bool IsAvailable { get; set; }
     }
 }

@@ -53,9 +53,9 @@ namespace GtMotive.Estimate.Microservice.Infrastructure.Repositories
         }
 
         /// <inheritdoc/>
-        public async Task<IEnumerable<Vehicle>> GetAllAvailableAsync()
+        public async Task<IEnumerable<Vehicle>> GetAllAsync()
         {
-            var cursor = await _collection.FindAsync(d => d.IsAvailable);
+            var cursor = await _collection.FindAsync(_ => true);
             var documents = await cursor.ToListAsync();
             var vehicles = new List<Vehicle>(documents.Count);
             foreach (var doc in documents)
@@ -73,8 +73,7 @@ namespace GtMotive.Estimate.Microservice.Infrastructure.Repositories
                 Id = vehicle.Id,
                 Make = vehicle.Make,
                 Model = vehicle.Model,
-                ManufactureYear = vehicle.ManufactureYear,
-                IsAvailable = vehicle.IsAvailable
+                ManufactureYear = vehicle.ManufactureYear
             };
         }
     }
