@@ -1,4 +1,6 @@
-﻿using System;
+﻿#nullable enable
+using System;
+using System.Collections.Generic;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
@@ -8,7 +10,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace GtMotive.Estimate.Microservice.InfrastructureTests.Infrastructure
 {
-    internal sealed class GenericInfrastructureTestServerFixture : IDisposable
+    public sealed class GenericInfrastructureTestServerFixture : IDisposable
     {
         public GenericInfrastructureTestServerFixture()
         {
@@ -16,7 +18,15 @@ namespace GtMotive.Estimate.Microservice.InfrastructureTests.Infrastructure
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseEnvironment("IntegrationTest")
                 .UseDefaultServiceProvider(options => { options.ValidateScopes = true; })
-                .ConfigureAppConfiguration((context, builder) => { builder.AddEnvironmentVariables(); })
+                .ConfigureAppConfiguration((context, builder) =>
+                {
+                    builder.AddEnvironmentVariables();
+                    builder.AddInMemoryCollection(new Dictionary<string, string?>
+                    {
+                        ["MongoDb:ConnectionString"] = "mongodb://localhost:27017",
+                        ["MongoDb:MongoDbDatabaseName"] = "test_renting"
+                    });
+                })
                 .UseStartup<Startup>();
 
             Server = new TestServer(hostBuilder);

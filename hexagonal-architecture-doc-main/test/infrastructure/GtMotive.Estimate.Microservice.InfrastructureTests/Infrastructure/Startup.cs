@@ -3,6 +3,7 @@ using Acheve.AspNetCore.TestHost.Security;
 using Acheve.TestHost;
 using GtMotive.Estimate.Microservice.Api;
 using GtMotive.Estimate.Microservice.Infrastructure;
+using GtMotive.Estimate.Microservice.Infrastructure.MongoDb.Settings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -32,7 +33,7 @@ namespace GtMotive.Estimate.Microservice.InfrastructureTests.Infrastructure
 
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
-        public static void ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services)
         {
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Startup).GetTypeInfo().Assembly));
 
@@ -40,9 +41,11 @@ namespace GtMotive.Estimate.Microservice.InfrastructureTests.Infrastructure
                 .AddTestServer();
 
             services.AddControllers(ApiConfiguration.ConfigureControllers)
-                .WithApiControllers();
+                .WithApiControllers()
+                .AddNewtonsoftJson();
 
             services.AddBaseInfrastructure(true);
+            services.Configure<MongoDbSettings>(Configuration.GetSection("MongoDb"));
         }
     }
 }
